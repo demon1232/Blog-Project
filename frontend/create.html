@@ -1,0 +1,23 @@
+<input id="title" placeholder="Title">
+<textarea id="content"></textarea>
+<button onclick="createBlog()">Create</button>
+
+<script>
+function createBlog() {
+  let token = localStorage.getItem("token");
+
+  fetch("http://127.0.0.1:9000/api/create/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+    body: JSON.stringify({
+      title: document.getElementById("title").value,
+      content: document.getElementById("content").value
+    })
+  })
+  .then(res => res.json())
+  .then(data => alert("Blog Created"));
+}
+</script>
